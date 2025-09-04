@@ -22,3 +22,28 @@ This document is a list of the ideas I have when first starting this project.
 	- *I believe this is done by looking at the model's sparse hidden activations, need to do more research to ensure*
 	- *Other option is looking at the decoder weights*
 - Apply the model to different LLMs within the same family/outside the family/outside the company and see how it responds
+
+$\star$ - A word/acronym I don't know/line where I'm confused
+$\checkmark$ - A word/acronym I now know
+### After running this through ChatGPT 5:
+Notes:
+- Experiment on different layers (earlier layers are more syntactic, later layers are more semantic)$\star$
+- Use reconstruction loss and sparsity regularization (L1 or KL divergence on activations)$\star$
+- Try constraining weights to be nonnegative for more interpretable factors (NMF)
+- Compare SAE codes to PCA/ICA/NMV baselines to prove added value$\star$
+- Probe sparse features by:
+	- Activation maximization
+	- Nearest neighbors
+	- Human labeling
+	- Auto concept discovery
+- Feature alignment between models:
+	- Canonical Correlation Analysis$\star$
+	- Procrustes alignment$\star$
+	- Centered Kernel Alignment$\star$
+	- *Are concepts represented similarly?*
+
+Challenges:
+1. SAE features can be hard to name
+	- Look to quantify stability and distinctiveness
+2. "Does this neuron mean X" can be fuzzy
+	- Combine human judgement with quantitative alignment metrics
