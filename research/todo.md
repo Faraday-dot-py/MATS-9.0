@@ -1,0 +1,27 @@
+this is a simple todo list, it's gonna be reused a lot
+
+- [x] Get model embeddings for layer `n`
+	- [x] Get a model
+		- [x] Decide which to use
+			- [ ] GPT2 is small and used in a bunch of places (chose this one)
+			- [ ] Start simple
+			- [ ] Distilled models?
+			- [ ] Needs to be a somewhat new model
+		- [x] Where to download
+			- [x] https://huggingface.co/openai-community/gpt2-large
+	- [x] Load model
+	- [x] Capture model's embeddings
+		- [x] Run some text through it
+- [ ] Gather dataset
+	- [ ] What text?
+		- [x] Shakespeare is easy but small
+		- [ ] Open source language datasets?
+		- [ ] Datasets in other languages?
+	- [ ] Format?
+		- [ ] YES! Sentences end with punctuation
+			- [ ] Fix: modify the data loader/file loader to split the data at random points
+			- [ ] Fix 2: Generate a ds by making a sequential super set of the text (shakespeare atp)
+- [ ] Run first (small) training pass
+	- [ ] Does the model start learning?
+- [ ] Run big training pass
+	- [ ] Can we start to see features forming?
