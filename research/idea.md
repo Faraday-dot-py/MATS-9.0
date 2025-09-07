@@ -110,3 +110,41 @@ CKA
 - Centered Kernel Alignment
 - Similarity measure for comparing representation spaces
 - Good for comparing models
+
+# Working session 3
+*I tested myself on the code from last session and it all still makes sense, which is a good sign!*
+
+*It's cool seeing concepts of different algorithms playing out in ML*
+- *Example: minimax branch pruning $\approx$ topk masks*
+
+**COOL THING FOUND:**
+Now that I have neuron activations, I can plot them with matplotlib, and I've noticed something interesting: The same neurons seem to be firing a lot! 
+
+This is a screenshot of a graph of all the activations for 10 passes through the network
+![[plottedGPT2Activations.png]]
+What's interesting is there seems to be a collection of activations between neurons 300 and 500, as well as a couple spikes around neuron 50 and a smaller one around neuron 700. This happens no matter what slice of the dataset I use!
+
+My theories as to why this is happening:
+1. Neurons at the center of the network have the most potential for data to pass through them *\*likely not, as the residual stream isn't geometric (it has no "middle")*
+2. Since the dataset is mainly Shakespeare, is there something about that style of writing that activates certain neurons more than others?
+	- Has the model captured the "feel" of certain writing styles?
+	- Method to test this:
+		- Get another dataset (more diverse) and see how the model reacts to it
+		- Get a multi-lingual model and see how it reacts to the same text but in two different languages
+	- Possible that the token being grabbed (last token in the last hidden layer) is punctuation/"the concept of the end of a line"
+		- Solution: Grab different tokens (second to last, third to last, (middle???))
+Other interesting things to look at later:
+- mean and std of dataset
+	- Look for anisotropy (some dimensions with higher levels of "energy")
+	- Especially with similar datasets (look at The Bee Movie script vs the Shrek script)
+		- Different biased datasets would have certain anisotropic dimensions
+		- Unbiased dataset should be isotropic
+			- Idea: Uniformity (isotropic vs anisotropic) of a model is a good measure of its bias
+			- Look at the anisotropic features and see what they represent
+	- A sign that a concept is represented in that dimension
+- Grab a random token instead of the last one
+- Dataset whitening
+- Look at post-LN activations instead of the last hidden layer pre-LN activations
+	- Normalized representations might help with scale artifacts
+	- Better representation of what the unembedding matrix gets
+	- "Pre-thought layer vs thought layer vs speech layer"
