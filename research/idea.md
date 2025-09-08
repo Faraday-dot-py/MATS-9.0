@@ -148,3 +148,41 @@ Other interesting things to look at later:
 	- Normalized representations might help with scale artifacts
 	- Better representation of what the unembedding matrix gets
 	- "Pre-thought layer vs thought layer vs speech layer"
+
+# Working session 3
+*It's training time!!!*
+
+*This session will be interesting as it's the first time I've training a large model like this. I've done smaller models but mostly pure unsupervised learning*
+
+*I feel like work has progressed slowly due to me constantly taking breaks but looking back at my notes the lack of progress in amount of code is more than made up for by the amount of research and learning I've done*
+
+*I also need a better dataset, that'll be my first task for today*
+
+Dataset needs to be:
+Large: 
+- Not sure how large, would prefer a couple gigabytes at least
+Broad:
+- Dataset must be broad in two senses of the word:
+	- Broad in topic:
+		- Covers a wide range of datasets
+		- SigmaLaw (law dataset) not allowed
+	- Broad in type:
+		- Not only question-answer datasets
+		- Not only code datasets
+		- Q/A datasets might be good for a first pass if they're broad enough in topic
+			- Need to check how the activations of answering questions compares to the activations of problem solving
+	- English:
+		- I don't know other languages
+		- Languages have semantic information that google translate won't tell me
+			- Swear words are a great example of this
+
+https://www.kaggle.com/datasets/wikimedia-foundation/wikipedia-structured-contents/data
+Pros
+- Dataset has a lot of data
+- Chunked nicely
+- Separated nicely
+- Has links to other articles which might be nice for comparing activation maps
+Cons
+- Lots of metadata in files
+	- Requires preprocessing
+
