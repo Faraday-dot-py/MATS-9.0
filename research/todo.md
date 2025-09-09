@@ -12,16 +12,20 @@ this is a simple todo list, it's gonna be reused a lot
 	- [x] Load model
 	- [x] Capture model's embeddings
 		- [x] Run some text through it
-- [ ] Gather dataset
-	- [ ] What text?
+- [x] Gather dataset
+	- [x] What text?
 		- [x] Shakespeare is easy but small
 		- [ ] Open source language datasets?
 		- [ ] Datasets in other languages?
-	- [ ] Format?
+	- [x] Format?
 		- [ ] YES! Sentences end with punctuation
-			- [ ] Fix: modify the data loader/file loader to split the data at random points
+			- [x] Fix: modify the data loader/file loader to split the data at ~~random points~~ topic-specific points
+				- Do still do random points in a line later
 			- [ ] Fix 2: Generate a ds by making a sequential super set of the text (shakespeare atp)
-- [ ] Run first (small) training pass
-	- [ ] Does the model start learning?
-- [ ] Run big training pass
-	- [ ] Can we start to see features forming?
+- [x] Run first (small) training pass
+	- [x] Does the model start learning?
+- [x] Run big training pass
+	- [x] Can we start to see features forming?
+- [x] Tuning
+	- [x] Found good baseline!
+- [ ] Feature steering
