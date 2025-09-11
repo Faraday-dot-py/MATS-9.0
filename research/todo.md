@@ -22,10 +22,17 @@ this is a simple todo list, it's gonna be reused a lot
 			- [x] Fix: modify the data loader/file loader to split the data at ~~random points~~ topic-specific points
 				- Do still do random points in a line later
 			- [ ] Fix 2: Generate a ds by making a sequential super set of the text (shakespeare atp)
+	- [ ] More data!
+		- [ ] Upload data to google drive
+		- [x] Connect colab to google drive dataset
 - [x] Run first (small) training pass
 	- [x] Does the model start learning?
 - [x] Run big training pass
 	- [x] Can we start to see features forming?
-- [x] Tuning
+- [ ] Tuning
 	- [x] Found good baseline!
+	- [ ] Need to re-tune to account for more data
 - [ ] Feature steering
+	- [ ] Come up with probe prompts
+	- [ ] Make metrics to measure how the targets move
+	- [ ] Does the SAE recognize different features based on the directionality of a prompt?

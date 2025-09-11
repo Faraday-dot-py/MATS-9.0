@@ -300,17 +300,57 @@ It also may be time to switch to a new model now that I have GPT2 working
 `printTopN`: 5
 `showFeatures`: 5
 
-| `codeDimsMultiplier` | `l1Strength` | `epochs` | `batchSize` | `topkFeatures` | `learningRate` | `modelDims` | `codeDims` | `Reconstruction MSE` | `Reconstruction R^2` | `Activaiton density` | `Dead feature rate` | `Gini`              | `Cos mean`             | `Cos p95`           | `Cos max`           |        |
-| -------------------- | ------------ | -------- | ----------- | -------------- | -------------- | ----------- | ---------- | -------------------- | -------------------- | -------------------- | ------------------- | ------------------- | ---------------------- | ------------------- | ------------------- | ------ |
-| 4                    | 0.01         | 100      | 256         | None           | 0.001          | 640         | 2560       | 1.216102066040039    | 0.8707082630691537   | 0.509960949420929    | 0.0                 | 0.13721787929534912 | 2.140082506230101e-05  | 0.07624021917581558 | 0.1416170299053192  | 1305.5 |
-| 4                    | 0.01         | 100      | 256         | 50             | 0.001          | 640         | 2560       | 3.162237548828125    | 0.6638019154039747   | 0.01953125           | 0.5582031011581421  | 0.7219640016555786  | 0.0011569368652999401  | 0.09361152350902557 | 0.246487557888031   | 50.0   |
-| 4                    | 0.01         | 100      | 256         | 100            | 0.001          | 640         | 2560       | 2.7461373901367185   | 0.708040235325258    | 0.0390625            | 0.2972656190395355  | 0.5582460761070251  | 6.872609083075076e-05  | 0.09423691779375076 | 0.23151257634162903 | 100.0  |
-| 4                    | 0.01         | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.502765655517578    | 0.733914670676925    | 0.05859375           | 0.15781250596046448 | 0.46436819434165955 | -0.0012068153591826558 | 0.08843746036291122 | 0.20416176319122314 | 150.0  |
-| 4                    | 0            | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.504317169189453    | 0.7337497191460376   | 0.05859375           | 0.15976563096046448 | 0.46610578894615173 | -0.0012865083990618587 | 0.09159372746944427 | 0.22213371098041534 | 150.0  |
-| 4                    | 0.0001       | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.4856434631347657   | 0.7357350425478868   | 0.05859375           | 0.15625             | 0.46557626128196716 | 0.0006806570454500616  | 0.08926211297512054 | 0.19671639800071716 | 150.0  |
-| 4                    | 0.0003       | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.5052859497070314   | 0.733646721774912    | 0.05859375           | 0.15742187201976776 | 0.4603228271007538  | -0.0016386461211368442 | 0.08727496862411499 | 0.20150408148765564 | 150.0  |
-| 4                    | 0.001        | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.487263641357422    | 0.7355627908410651   | 0.05859375           | 0.15976563096046448 | 0.4597325325012207  | -0.000974904338363558  | 0.08555655181407928 | 0.2157110720872879  | 150.0  |
+| `codeDimsMultiplier` | `l1Strength` | `epochs` | `batchSize` | `topkFeatures` | `learningRate` | `modelDims` | `codeDims` | `Reconstruction MSE` | `Reconstruction R^2` | `Activaiton density` | `Dead feature rate` | `Gini`              | `Cos mean`             | `Cos p95`           | `Cos max`           | `Mean Active` |
+| -------------------- | ------------ | -------- | ----------- | -------------- | -------------- | ----------- | ---------- | -------------------- | -------------------- | -------------------- | ------------------- | ------------------- | ---------------------- | ------------------- | ------------------- | ------------- |
+| 4                    | 0.01         | 100      | 256         | None           | 0.001          | 640         | 2560       | 1.216102066040039    | 0.8707082630691537   | 0.509960949420929    | 0.0                 | 0.13721787929534912 | 2.140082506230101e-05  | 0.07624021917581558 | 0.1416170299053192  | 1305.5        |
+| 4                    | 0.01         | 100      | 256         | 50             | 0.001          | 640         | 2560       | 3.162237548828125    | 0.6638019154039747   | 0.01953125           | 0.5582031011581421  | 0.7219640016555786  | 0.0011569368652999401  | 0.09361152350902557 | 0.246487557888031   | 50.0          |
+| 4                    | 0.01         | 100      | 256         | 100            | 0.001          | 640         | 2560       | 2.7461373901367185   | 0.708040235325258    | 0.0390625            | 0.2972656190395355  | 0.5582460761070251  | 6.872609083075076e-05  | 0.09423691779375076 | 0.23151257634162903 | 100.0         |
+| 4                    | 0.01         | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.502765655517578    | 0.733914670676925    | 0.05859375           | 0.15781250596046448 | 0.46436819434165955 | -0.0012068153591826558 | 0.08843746036291122 | 0.20416176319122314 | 150.0         |
+| 4                    | 0            | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.504317169189453    | 0.7337497191460376   | 0.05859375           | 0.15976563096046448 | 0.46610578894615173 | -0.0012865083990618587 | 0.09159372746944427 | 0.22213371098041534 | 150.0         |
+| 4                    | 0.0001       | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.4856434631347657   | 0.7357350425478868   | 0.05859375           | 0.15625             | 0.46557626128196716 | 0.0006806570454500616  | 0.08926211297512054 | 0.19671639800071716 | 150.0         |
+| 4                    | 0.0003       | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.5052859497070314   | 0.733646721774912    | 0.05859375           | 0.15742187201976776 | 0.4603228271007538  | -0.0016386461211368442 | 0.08727496862411499 | 0.20150408148765564 | 150.0         |
+| 4                    | 0.001        | 100      | 256         | 150            | 0.001          | 640         | 2560       | 2.487263641357422    | 0.7355627908410651   | 0.05859375           | 0.15976563096046448 | 0.4597325325012207  | -0.000974904338363558  | 0.08555655181407928 | 0.2157110720872879  | 150.0         |
 
 Seem to have found a good baseline, need to experiment with steering and cross-model compatability
 - Can I use LLMs to figure out what the top features mean?
 - I'd like to increase the model's dimensions and increase l1 score and topk features to try and get more, distinct features
+
+# Working Session 7
+*Would be beneficial to save the DS as tensor activations*
+- Pros:
+	- Don't need to re-process the tensors every time my notebook shuts down
+- Cons:
+	- More difficult to load a new model
+- Solution:
+	- Create a folder named `{modelName}_activations`
+	- Autogenerated config file at the top
+		- Model name
+		- Model version number
+		- Last updated timestamp
+		- File names processed
+
+# Working Session 8
+*Realized that the ability to show the top strings in the DS comes from the fact that it's a text-based DS*
+- Would rather keep it as text for now as it makes testing and steering easier
+
+Instead, let's confirm that the SAE actually is learning features
+
+On my streaming dataset:
+- Works really nicely for loading data quickly, as not everything is loaded at once
+- Sucks because it makes looking back at what the text was much more difficult
+
+I've started using my school google drive as storage for the wikipedia dataset, as it quickly connects to the colab notebook (14gb is under the 15gb limit!)
+- This gives me access to millions of training examples (~7m examples with ~1/3 of the DS uploaded)
+- Unfortunately means I have to re-tune network
+	- Started re-tuning and I'm getting way more promising results!
+	- Before, text outputs before didn't seem to have a cohesive topic
+	- Now they seem to differ more (although topics still seem to be random-ish)
+	- More data seems to help refine the SAE, I'll keep uploading the DS to my drive and see how that changes the model's performance
+
+Now that I have a large dataset and a computer that can run large training jobs (I signed up for colab education), I can start steering and probing the SAE to see how it reacts
+- Hopefully I can find specific features that react well
+- Need to research how to successfully and objectively steer the SAE
+- Would like to train it with a different seed and compare cosine scores to see how similar the model is
+	- Might show if the SAE learns to interpret features in the same way
+- Also would like to do this with a different model and see how the SAE reacts
+	- Might show if two different LLMs "think" the same
