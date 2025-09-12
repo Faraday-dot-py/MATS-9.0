@@ -340,7 +340,7 @@ On my streaming dataset:
 - Sucks because it makes looking back at what the text was much more difficult
 
 I've started using my school google drive as storage for the wikipedia dataset, as it quickly connects to the colab notebook (14gb is under the 15gb limit!)
-- This gives me access to millions of training examples (~7m examples with ~1/3 of the DS uploaded)
+- This gives me access to millions of training examples (~7m examples with ~1/3 of the DS uploaded) (ended up being 33,516,409 lines of text, split across 3,373 files)
 - Unfortunately means I have to re-tune network
 	- Started re-tuning and I'm getting way more promising results!
 	- Before, text outputs before didn't seem to have a cohesive topic
@@ -354,3 +354,21 @@ Now that I have a large dataset and a computer that can run large training jobs 
 	- Might show if the SAE learns to interpret features in the same way
 - Also would like to do this with a different model and see how the SAE reacts
 	- Might show if two different LLMs "think" the same
+
+# Working Session 9
+*It's time to start trying to see if my SAE "understands"*
+- Start working on steering
+	- How is this done?
+	- Can I engineer prompts to activate certain neurons?
+- Make a list of the activations and start labeling them
+
+*The model seems to pick up really well on sports-based concepts and competitions*
+- Is this because there's so much data about that or is there another reason?
+
+I'm having some issues getting features to define specific concepts
+Applying a layernorm to the activations seems to have help separate the feature activations
+- Theory: There were so many sports examples that the model is overfitting, which is why all features seem to relate to a sport in one way or another
+
+Some good-old-fashioned keyword analysis might be good to figure out what these words mean
+- Tuning the network and increasing the size of the DS are both really good ways to decrease cosine similarity scores between feature outputs
+- Also good at decreasing top output scores
