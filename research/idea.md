@@ -372,3 +372,38 @@ Applying a layernorm to the activations seems to have help separate the feature 
 Some good-old-fashioned keyword analysis might be good to figure out what these words mean
 - Tuning the network and increasing the size of the DS are both really good ways to decrease cosine similarity scores between feature outputs
 - Also good at decreasing top output scores
+
+# Working session 10
+*I'd like to wrap everything up in this session or the next*
+
+Some advice from ChatGPT:
+- Last token is often PAD/EOS
+	- Select last non-pading token (with attention_mask)
+	- Could also sample random token
+- Exemplar text alignment can be wrong if shuffle=True
+	- Has this been messing with my examples???
+		- IT HAS BEEN (this has been fixed)
+	- Don't shuffle
+
+***CHATGPT'S ADVICE ON SHUFFLING HAS REVEALED THE MODEL WORKS***
+*like, really well*
+Feature 28 is the best example of that:
+- 2,4,5-Trichlorophenol (TCP) is an organochloride with the molecular formula C H Cl O. It has been used as a fungicide and herbicide. Precursor chemical used in the production of 2,4,5-Trichlorophenoxy 
+- Acyl azides have also been synthesized from various carboxylic acids and sodium azide in presence of triphenylphosphine and trichloroacetonitrile catalysts in excellent yields at mild conditions. Anot 
+- It is also possible to synthesize a target DNA strand for a DNA construct. Short strands of DNA known as oligonucleotides can be developed using column-based synthesis, in which bases are added one at 
+- Sliding clamps are loaded onto their associated DNA template strands by specialized proteins known as " sliding clamp loaders ", which also disassemble the clamps after replication has completed. The 
+
+The feature very clearly represents chemistry, potentially specifically biochem
+
+The model does have some less clear features, like Feature 1336
+- Looks like some taxonomic/morphological species decriptions
+- There's some odd random stuff about Charles-Louis-Joseph-Xavier de la Vallée-Poussin (???) and a type of Frigate
+
+Playing with the L1 strength or topk might give more clear features, but I want to move on for now
+
+*It's cool seeing the model pick up on both human-intuitive concepts (organic chemistry) and "AI-intuitive" concepts (acronyms)*
+
+Now that the model is *actually* interpretable, it's time to get probing
+- Start with different seed
+- Compare cosines of the same feature trained with a different seed
+- Compare it to an older version of Gemma
