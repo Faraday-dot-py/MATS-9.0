@@ -1,6 +1,50 @@
-# Do different AIs dream of the same electric sheep?
-Do Large Language Models learn to represent high-level concepts in similar ways?
+# Executive Summary
+#### Do different AIs dream of the same electric sheep?
+Exploring Whether Large Language Models Learn to Represent Concepts in Similar Ways
+### Overview
+This project dives into whether different large language models (LLMs) represent abstract concepts in comparable ways. Inspired by the idea that vector arithmetic in embeddings (e.g., man + woman + love = baby), the central guiding question was:
 
+***Do different LLMs "dream of the same electric sheep"*** - that is, do they learn to represent high-level concepts in similar ways?
+
+By training sparse autoencoders (SAEs) on activations from two different LLMs and comparing the features they extract, the project aimed to reveal whether models converge on shared representations of ideas or diverge due to architecture, training data, or scale.
+
+### Motivation and Approach
+An analogy for this idea comes from human behavior: If two players accomplish a task independently, they must have internalized similar knowledge of how that task is done, even if they were not explicitly told how to do so, nor did their backgrounds overlap. Similarly, two LLMs of different architecture trained on different data seem to encode common abstract structures if they solve similar linguistic tasks.
+
+The research approach followed four stages:
+1. **Training SAEs on LLM outputs** - Capture interpretable features from later hidden states.
+2. **Exemplar text identification** - Select input strings that maximally activate those features.
+3. **Feature interpretation** - Assign semantic meaning to groups of activations
+4. **Cross-model comparison** - Contrast features between two different LLMs
+
+The practical goal was to compare how smaller-scale models (Gemma-3-270m-it vs Facebook OPT-125m) represent concepts and abstract ideas found in Wikipedia articles.
+
+### Key Findings:
+1. **Abstract Concepts Emerge Even in Small Models**
+	Early experiments with GPT-2 showed feature activations corresponding to subjective writing style-based properties like "Shakespearean-ness." Even early, rudimentary models seem to capture surprisingly abstract features.
+2. **Dataset Bias Shapes Feature Prominence**
+	Using the Wikipedia dataset as a training base highlighted some recurring themes such as sports, dates, and acronyms. These dominated exemplar features, showing the importance of dataset distribution and normalization.
+		*Note: Noise in exemplar results was reduced once random vs. sequential sampling inconsistencies were corrected *
+3. **Models Differ in Level of Abstraction**
+	Comparing Gemma and Facebook OPT revealed overlapping high-level conceptual domains such as sports, geography, biology, and politics, but at varying levels of granularity.
+	- **OPT (125m)**: Narrow, entity-level clusters (one tournament, one species)
+	- **Gemma (270m):** Broader, theme-based groupings (e.g., political systems, historical movements).
+	This suggests larger parameter counts may support more abstract representations, while smaller models lean toward factual, entity-centric clusters.
+4. **Partial Convergence Across Models**
+	Despite differences, both models converged on intuitive groupings of human knowledge. This supports the hypothesis that LLMs trained on diverse text bases tend to partition "concept space" into somewhat similar regions, even if boundaries differ.
+
+### Challenges Encountered
+- Computational limits prevented training on the full Wikipedia dataset, requiring the shortening of inputs and harsh sampling
+- Dataset skew toward sports, dates, and acronyms distort feature balance
+- Comparison methods were limited; reliance on manual review and secondary LLM assistance left significant room for more quantitative measurements of similarity
+
+### Future Directions
+1. **Expand datasets** - Utilize high-performance compute to incorporate more balanced and larger-scale data
+2. **Improve feature comparison** - Use LLM-assisted feature labeling across larger feature sets
+3. **Scale up models** - Apply the methodology to larger LLMs (e.g., LLaMA-8B) to test whether observed behavior extrapolates up with scale
+4. **Cross-language analysis** - Compare models trained in different languages to analyze cultural variation in conceptual representation
+
+# Write-up
 ## Introduction
 ### Initial interest
 The idea that LLMs use vectors to represent ideas was originally introduced to me by 3Blue1Brown in his video on how LLMs work. What really interested me was the (I'm sure now quite famous) example `Hitler+Italy-Germany=Mussolini`. My first thought was "how can we use AI to detect vectors with certain meanings?" After a quick Google search, I realized that this has already been done quite a bit, but what I couldn't seem to find much about was whether different LLMs represent concepts in the same way.
@@ -118,13 +162,13 @@ Both models cluster features into high-level conceptual categories such as:
 This suggests they are segmenting text space into broadly similar domains.
 
 **Differences in Grouping Granularity**
-- **facebook**: Features often feel narrower and more fine-grained  
+- **OPT**: Features often feel narrower and more fine-grained  
   (e.g., specific tournaments, species, or named people).  
 - **gemma**: Features tend to group more broadly, with descriptive or contextual detail  
   (e.g., legal systems, historical movements, artistic practices).
 
 **Stylistic Emphasis**
-- **facebook**: Reads like raw encyclopedia snippets — factual, entity-centric.  
+- **OPT**: Reads like raw encyclopedia snippets — factual, entity-centric.  
 - **gemma**: More thematic and explanatory — often adding narrative context.
 
 **Shared Conceptual Anchors**
@@ -135,11 +179,11 @@ Both contain clusters around:
 - **History / politics / governance** (wars, elections, constitutions, legal systems)
 
 **Divergences**
-- **facebook**: Isolates specific entities (e.g., one athlete, one moth, one event).  
+- **OPT**: Isolates specific entities (e.g., one athlete, one moth, one event).  
 - **gemma**: Ties entities into larger thematic patterns (e.g., classification systems, political frameworks).
 
 **Summary**
-- **facebook** = more *fine-grained*, entity-level clusters.  
+- **OPT** = more *fine-grained*, entity-level clusters.  
 - **gemma** = more *thematic*, relational, or contextual clusters.  
 
 Both group concepts in similar directions, but at different levels of abstraction.
@@ -147,9 +191,9 @@ Both group concepts in similar directions, but at different levels of abstractio
 ---
 
 ### Thoughts:
-I would consider this a partial success. It seems as though Facebook is grouping concepts at a much higher level than Gemma is, and I have two main theories as to why:
-1. Gemma is a larger model. With a parameter space of ~270m, it may be able to represent higher-level concepts than the ~125m parameter space of Facebook.
-2. I didn't train Facebook as well, as I ran out of time toward the end of the project and was unable to tinker with the model's SAE as much as I did with Gemma
+I would consider this a partial success. It seems as though OPT is grouping concepts at a much higher level than Gemma is, and I have two main theories as to why:
+1. Gemma is a larger model. With a parameter space of ~270m, it may be able to represent higher-level concepts than the ~125m parameter space of OPT.
+2. I didn't train OPT as well, as I ran out of time toward the end of the project and was unable to tinker with the model's SAE as much as I did with Gemma
 
 ### Potential knobs to fiddle with:
 The big three variables that I would like to fiddle with next are:
