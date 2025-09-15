@@ -2,7 +2,7 @@
 #### Do different AIs dream of the same electric sheep?
 Exploring Whether Large Language Models Learn to Represent Concepts in Similar Ways
 ### Overview
-This project dives into whether different large language models (LLMs) represent abstract concepts in comparable ways. Inspired by the idea that vector arithmetic in embeddings (e.g., man + woman + love = baby), the central guiding question was:
+This project dives into whether different large language models (LLMs) represent abstract concepts in comparable ways. Inspired by the idea that vector arithmetic in embeddings (e.g., $Hitler+Italy-Germany\approx Mussolini$), the central guiding question was:
 
 ***Do different LLMs "dream of the same electric sheep"*** - that is, do they learn to represent high-level concepts in similar ways?
 
