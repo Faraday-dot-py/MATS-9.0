@@ -1,5 +1,4 @@
 # MATS-9.0
-This repo contains my application for Neel Nanda's MATS 9.0 Stream. 
 # Executive Summary
 #### Do different AIs dream of the same electric sheep?
 Exploring Whether Large Language Models Learn to Represent Concepts in Similar Ways
